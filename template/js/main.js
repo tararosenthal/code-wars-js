@@ -12,3 +12,19 @@ function validBraces(b){
   return false;
 }
 console.log(validBraces("(({{[[]]}}))"));
+
+const map = new Map();
+
+var fibonacci = function(n) {
+  if (n < 2) {
+    return n;
+  } else if (map.has(n)) {
+    return map.get(n);
+  } else {
+    let x = fibonacci(n - 1) + fibonacci(n - 2);
+    map.set(n, x);
+    return x;
+  }
+}
+
+console.log(fibonacci(70));
