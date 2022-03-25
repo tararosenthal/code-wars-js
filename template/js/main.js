@@ -28,3 +28,15 @@ var fibonacci = function(n) {
 }
 
 console.log(fibonacci(70));
+
+function add(n){
+  var fn = function(x) {
+    return add(n + x);
+  }
+
+  fn.valueOf = function() {
+    return n;
+  }
+
+  return fn;
+}
