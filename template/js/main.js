@@ -99,3 +99,28 @@ console.log("item count: " + example.itemCount());
 console.log("page count: " + example.pageCount());
 console.log("pageItemCount: " + example.pageItemCount(1));
 console.log("page index: " + example.pageIndex(5));
+
+
+
+function rangeExtractor(list){
+  let string = '';
+
+  for (let i = 0; i < list.length; i++) {
+    let rangeStart = list[i];
+    string += rangeStart;
+
+    for (let j = i + 1; j <= list.length; j++) {
+      if (j === list.length || list[j] != rangeStart + j - i) {
+        if (j - i >= 3) {
+          string += '-' + list[j - 1]; //build range
+          i = j - 1;
+        }
+        break;
+      }
+    }
+    string += ',';
+  }
+  return string.substring(0, string.length - 1);
+}
+
+console.log(rangeExtractor([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]));
