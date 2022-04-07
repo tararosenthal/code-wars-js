@@ -124,3 +124,28 @@ function rangeExtractor(list){
 }
 
 console.log(rangeExtractor([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]));
+
+
+
+function add(a, b) {
+  let aArray = a.split("");
+  let bArray = b.split("");
+  let cArray = [];
+  let carryOver = 0;
+
+  while(aArray.length > 0 || bArray.length > 0) {
+
+    let aNum = aArray.length > 0 ? Number(aArray.pop()) : 0;
+    let bNum = bArray.length > 0 ? Number(bArray.pop()) : 0;
+    let cNum = aNum + bNum + carryOver;
+
+    cArray.unshift(cNum % 10);
+    carryOver = Math.floor((cNum / 10) % 10);
+  }
+  if (carryOver) {
+    cArray.unshift(carryOver);
+  }
+  return cArray.join("");
+}
+
+console.log(add('63829983432984289347293874', '90938498237058927340892374089'));
