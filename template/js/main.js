@@ -149,3 +149,33 @@ function add(a, b) {
 }
 
 console.log(add('63829983432984289347293874', '90938498237058927340892374089'));
+
+function getPINs(observed) {
+  const ADJACENT_BUTTONS = {
+    '0': ['0', '8'],
+    '1': ['1', '2', '4'],
+    '2': ['1', '2', '3', '5'],
+    '3': ['2', '3', '6'],
+    '4': ['1', '4', '5', '7'],
+    '5': ['2', '4', '5', '6', '8'],
+    '6': ['3', '5', '6', '9'],
+    '7': ['4', '7', '8'],
+    '8': ['5', '7', '8', '9', '0'],
+    '9': ['6', '8', '9']
+  };
+
+  let possiblePINs = [''];
+  const observedButtons = observed.split('');
+  for (const observedButton of observedButtons) {
+    const temp = [];
+    for (const adjacentButton of ADJACENT_BUTTONS[observedButton]) {
+      for (const possiblePIN of possiblePINs) {
+        temp.push(possiblePIN + adjacentButton);
+      }
+    }
+    possiblePINs = temp;
+  }
+  return possiblePINs;
+}
+
+console.log(getPINs('369'));
