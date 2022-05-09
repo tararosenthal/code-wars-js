@@ -179,3 +179,71 @@ function getPINs(observed) {
 }
 
 console.log(getPINs('369'));
+
+function justify(text, width) {
+  let words = text.split(' ');
+  let line = '';
+  let justified = '';
+
+  for (let i = 0; i < words.length; i++) {
+    if (line.length + words[i].length + 1 > width || i === words.length - 1) {
+      if (line.length < width && line.length + words[i].length + 1 > width) {
+        line = addSpaces(line, width);
+      }
+      // add \n then add to final string
+      if (line.length + words[i].length + 1 > width) {
+        justified += line + '\n';
+        line = words[i];
+        if (i === words.length - 1) {
+          justified += line;
+        }
+      } else {
+        if (line === '') {
+          justified += words[i];
+        } else {
+          line += ' ' + words[i];
+          justified += line;
+        }
+      }
+    } else {
+      line = `${line} ${words[i]}`.trim();
+    }
+  }
+  return justified;
+}
+
+function addSpaces(line, width) {
+  let lineArray = line.split(' ');
+  let spaces = createSpacesArray(width, line.length, lineArray.length);
+  line = '';
+  for (let i = 0; i < lineArray.length; i++) {
+    line += lineArray[i];
+    for (let j = spaces[i]; j > 0; j--) {
+      line += ' ';
+    }
+  }
+  return line;
+}
+
+function createSpacesArray(width, numOfChars, numOfWords) {
+  let difference = width - numOfChars + (numOfWords - 1);
+  let divisor = Math.ceil(difference / (numOfWords - 1));
+  let spacesArray = [];
+  for (let i = 0; i < numOfWords - 1; i++) {
+    spacesArray.push(divisor);
+  }
+
+  let addedSpaces = divisor * (numOfWords - 1);
+  let iterator = numOfWords - 2;
+
+  while (difference < addedSpaces) {
+    --spacesArray[iterator];
+    --iterator;
+    --addedSpaces;
+  }
+  spacesArray.push(0);
+  return spacesArray;
+}
+
+const LIPSUM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis dolor mauris, at elementum ligula tempor eget. In quis rhoncus nunc, at aliquet orci. Fusce at dolor sit amet felis suscipit tristique. Nam a imperdiet tellus. Nulla eu vestibulum urna. Vivamus tincidunt suscipit enim, nec ultrices nisi volutpat ac. Maecenas sit amet lacinia arcu, non dictum justo. Donec sed quam vel risus faucibus euismod. Suspendisse rhoncus rhoncus felis at fermentum. Donec lorem magna, ultricies a nunc sit amet, blandit fringilla nunc. In vestibulum velit ac felis rhoncus pellentesque. Mauris at tellus enim. Aliquam eleifend tempus dapibus. Pellentesque commodo, nisi sit amet hendrerit fringilla, ante odio porta lacus, ut elementum justo nulla et dolor.';
+console.log(justify(LIPSUM, 30));
